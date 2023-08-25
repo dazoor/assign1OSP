@@ -3,7 +3,7 @@
  * Principles
  **/
 #include <pthread.h>
-
+#include "writer.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -17,6 +17,7 @@ class reader {
      * readers, etc.
      **/
 
+    reader(writer& mywriter);
     /** initialize the shared data for the class - for example, open the
      * file. There will be other things which you will need to figure out
      * as you complete the assignment.
@@ -33,13 +34,14 @@ class reader {
     /**
      * does the setup for and launches the threads
      **/
-    void run();
+    void run(int numThreads);
     /**
      * there may be other functions you need so declare them.
      **/
 
    private:
     static std::ifstream in;
+    writer& thewriter;
     /**
      * There may be other private instance data you need so declare those here.
      **/

@@ -9,13 +9,15 @@
  * these need to be global variables as you'll need handle cleaning them up in
  *cleanup which will automatically be called on program exit
  **/
-reader* readers;
 writer* writers;
+reader* readers = new reader(*writers);
 
 void cleanup() {
     /**
      * perform any cleanup you need to do here for global pointers
      **/
+    delete readers;
+    delete writers;
 }
 
 int main(int argc, char** argv) {
@@ -23,6 +25,15 @@ int main(int argc, char** argv) {
     /**
      * check command line arguments
      **/
+    if (argc == 4) {
+
+        readers->init(argv[2]);
+        writers->init(argv[3]);
+        const int NUM_THREADS = std::stoi(argv[1]);
+        
+        readers->run(NUM_THREADS);
+        writers->run(NUM_THREADS);
+    }
     /**
      * process command line arguments
      **/

@@ -22,7 +22,7 @@ class writer {
      **/
     static void init(const std::string& name);
     static void* runner(void*);
-    void run();
+    void run(int numThreads);
     static void append(const std::string& line);
 
    private:

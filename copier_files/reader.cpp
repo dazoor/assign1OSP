@@ -11,9 +11,15 @@ reader::reader(const std::string& name, writer& mywriter) : thewriter(mywriter) 
 
 void reader::run() {
     std::string line;
-    while (std::getline(in, line)) {
-        thewriter->append(*line);
+    if (in.is_open()) {
+        while (std::getline(in, line)) {
+            thewriter.append(line);
+        }
+        thewriter.run();
+        in.close();
     }
-    thewriter->run();
-    in.close();
+    else {
+        std::cout << "ERROR, file not opened.\n";
+    }
+    
 }
